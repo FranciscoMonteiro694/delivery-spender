@@ -1,0 +1,43 @@
+.header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f2fbe0;
+}
+  
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-wrap {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    font-size: 18px;
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-link:hover {
+    color: #0070f3;
+}
+
+.auth-settings {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.settings-icon {
+    cursor: pointer;
+    color: #333;
+}
+
+.settings-icon:hover {
+    color: #0070f3;
+}
+  

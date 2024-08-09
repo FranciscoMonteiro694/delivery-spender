@@ -1,0 +1,10 @@
+.main-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-div {
+    min-width: 90%;
+}
