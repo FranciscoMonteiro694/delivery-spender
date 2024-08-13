@@ -40,7 +40,7 @@ const Calendar: React.FC = () => {
     <Card color="primary" size="lg" variant="solid" invertedColors>
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-          <Typography level="h4">{currentDate.toLocaleString('default', { month: 'long' })} {year}</Typography>
+          <Typography level="h4" color="primary">{currentDate.toLocaleString('default', { month: 'long' })} {year}</Typography>
         </Box>
       </CardContent>
       <CardContent>
@@ -50,7 +50,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={1.714} key={index}>
               <Card variant="outlined">
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography level="body-sm">{day}</Typography>
+                  <Typography level="body-sm" textColor="text.primary">{day}</Typography>
                 </CardContent>
               </Card>
             </Grid>

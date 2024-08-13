@@ -5,8 +5,12 @@ import './MainPage.css';
 export default function MainPage() {
   return (
     <div className="main-div">
-        {/* Current Cost */}
+        {/* Current Total Cost */}
+        <div className="costs-div">
         <CurrentCost/>
+        {/* Current Month Cost */}
+        <CurrentCost/>
+        </div>
         <br></br>
         {/* Calendar */}
         <div className="calendar-div">

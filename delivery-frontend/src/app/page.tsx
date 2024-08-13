@@ -1,17 +1,16 @@
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
 import styles from "./page.module.css";
-import { CssVarsProvider, Button } from '@mui/joy';
-//import theme from './themes'; 
+import ThemeProvider from "./ThemeProvider"
 
 export default function Home() {
   return (
-    //<CssVarsProvider theme={theme}>
+    <ThemeProvider>
       <main className={styles.main}>
         <Header/>
         <MainPage/>
         {/* <Footer/> */}
       </main>
-    //</CssVarsProvider>
+    </ThemeProvider>
   );
 }
