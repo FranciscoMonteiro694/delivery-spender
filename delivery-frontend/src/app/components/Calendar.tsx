@@ -1,9 +1,12 @@
-import React from 'react';
+"use client"; // Ensure this component is client-side
+
+import React, { useState } from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import Grid from '@mui/joy/Grid';
 import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
 
 // Utility functions to get days and starting day of the month
 const getDaysInMonth = (month: number, year: number) => {
@@ -15,17 +18,17 @@ const getStartDayOfMonth = (month: number, year: number) => {
 };
 
 const Calendar: React.FC = () => {
-  const currentDate = new Date();
-  const month = currentDate.getMonth();
-  const year = currentDate.getFullYear();
-  const totalDays = getDaysInMonth(month, year);
-  const startDay = getStartDayOfMonth(month, year);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+
+  const totalDays = getDaysInMonth(currentMonth, currentYear);
+  const startDay = getStartDayOfMonth(currentMonth, currentYear);
 
   // Get the previous and next month details
-  const prevMonth = month === 0 ? 11 : month - 1;
-  const nextMonth = month === 11 ? 0 : month + 1;
-  const prevMonthYear = month === 0 ? year - 1 : year;
-  const nextMonthYear = month === 11 ? year + 1 : year;
+  const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+  const nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
+  const prevMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+  const nextMonthYear = currentMonth === 11 ? currentYear + 1 : currentYear;
 
   const totalDaysPrevMonth = getDaysInMonth(prevMonth, prevMonthYear);
 
@@ -35,12 +38,38 @@ const Calendar: React.FC = () => {
   const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const nextMonthDays = Array.from({ length: endDay === 0 ? 0 : 7 - endDay }, (_, i) => i + 1);
 
+  // Handlers to navigate months
+  const goToPrevMonth = () => {
+    setCurrentMonth(prevMonth);
+    setCurrentYear(prevMonthYear);
+  };
+
+  const goToNextMonth = () => {
+    setCurrentMonth(nextMonth);
+    setCurrentYear(nextMonthYear);
+  };
 
   return (
-    <Card color="primary" size="lg" variant="solid" invertedColors>
+    <Card sx={{ bgcolor: 'primary.400' }} size="lg" variant="solid">
       <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-          <Typography level="h4" color="primary">{currentDate.toLocaleString('default', { month: 'long' })} {year}</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+          <Button
+            sx={{ minWidth: '40px' }}
+            variant="outlined"
+            onClick={goToPrevMonth}
+          >
+            &lt;
+          </Button>
+          <Typography level="h4" sx={{ color: 'white' }}>
+            {new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })} {currentYear}
+          </Typography>
+          <Button
+            sx={{ minWidth: '40px' }}
+            variant="outlined"
+            onClick={goToNextMonth}
+          >
+            &gt;
+          </Button>
         </Box>
       </CardContent>
       <CardContent>
@@ -48,9 +77,9 @@ const Calendar: React.FC = () => {
           {/* Render days of the week */}
           {daysOfTheWeek.map((day, index) => (
             <Grid item xs={1.714} key={index}>
-              <Card variant="outlined">
+              <Card sx={{ bgcolor: 'primary.800' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography level="body-sm" textColor="text.primary">{day}</Typography>
+                  <Typography level="body-sm" textColor="white">{day}</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -58,7 +87,7 @@ const Calendar: React.FC = () => {
           {/* Render previous month's days */}
           {prevMonthDays.map(day => (
             <Grid item xs={1.714} key={`prev-${day}`}>
-              <Card variant="outlined" sx={{ backgroundColor: 'black', height: '110px' }}>
+              <Card variant="outlined" sx={{ bgcolor: 'neutral.300', height: '110px', cursor: 'pointer' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Typography level="body-sm" textColor="text.secondary">
                     {day}
@@ -71,8 +100,8 @@ const Calendar: React.FC = () => {
           {/* Render current month's days */}
           {days.map(day => (
             <Grid item xs={1.714} key={day}>
-              <Card variant="outlined" sx={{ height: '110px' }}>
-                <CardContent sx={{ textAlign: 'center'}}>
+              <Card variant="outlined" sx={{ bgcolor: 'primary.100', height: '110px', cursor: 'pointer' }}>
+                <CardContent sx={{ textAlign: 'center' }}>
                   <Typography level="body-sm">{day}</Typography>
                 </CardContent>
               </Card>
@@ -82,7 +111,7 @@ const Calendar: React.FC = () => {
           {/* Render next month's days */}
           {nextMonthDays.map(day => (
             <Grid item xs={1.714} key={`next-${day}`}>
-              <Card variant="outlined" sx={{ backgroundColor: '#f0f0f0' }}>
+              <Card variant="outlined" sx={{ backgroundColor: '#f0f0f0', cursor: 'pointer' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Typography level="body-sm" textColor="text.secondary">
                     {day}

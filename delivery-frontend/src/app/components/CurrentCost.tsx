@@ -6,10 +6,10 @@ import SvgIcon from '@mui/joy/SvgIcon';
 
 export default function CurrentCost() {
   return (
-    <Card variant="solid" color="primary" sx={{ color: 'red' }} invertedColors>
+    <Card variant="solid" color="primary" sx={{ color: 'red', bgcolor: 'primary.400' }}>
       <CardContent orientation="horizontal">
-        <CircularProgress size="lg" determinate value={100}>
-          <SvgIcon>
+        <CircularProgress size="lg" determinate value={100} >
+          <SvgIcon sx={{ color: 'red'}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -26,7 +26,7 @@ export default function CurrentCost() {
           </SvgIcon>
         </CircularProgress>
         <CardContent>
-          <Typography level="body-md">Current month expenses</Typography>
+          <Typography level="body-md" sx={{ color: 'white'}}>Current month expenses</Typography>
           <Typography level="h2" textColor="red">$ 432.6 (+30%)</Typography>
         </CardContent>
       </CardContent>
