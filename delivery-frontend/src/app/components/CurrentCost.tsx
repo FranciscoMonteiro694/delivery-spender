@@ -26,7 +26,7 @@ export default function CurrentCost() {
           </SvgIcon>
         </CircularProgress>
         <CardContent>
-          <Typography level="body-md" sx={{ color: 'white'}}>Current month expenses</Typography>
+          <Typography level="title-lg" sx={{ color: '#30313D'}}>Current month expenses</Typography>
           <Typography level="h2" textColor="red">$ 432.6 (+30%)</Typography>
         </CardContent>
       </CardContent>

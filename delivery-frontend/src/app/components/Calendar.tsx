@@ -18,9 +18,10 @@ const getStartDayOfMonth = (month: number, year: number) => {
 };
 
 const Calendar: React.FC = () => {
-  const [currentDay, setCurrentDay] = useState(new Date().getDay());
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const today = new Date();
+  const [currentDay, setCurrentDay] = useState(today.getDate());
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
+  const [currentYear, setCurrentYear] = useState(today.getFullYear());
 
   const totalDays = getDaysInMonth(currentMonth, currentYear);
   const startDay = getStartDayOfMonth(currentMonth, currentYear);
@@ -43,6 +44,7 @@ const Calendar: React.FC = () => {
   const goToPrevMonth = () => {
     setCurrentMonth(prevMonth);
     setCurrentYear(prevMonthYear);
+    console.log("currentDay: "  + currentDay)
   };
 
   const goToNextMonth = () => {
@@ -61,7 +63,7 @@ const Calendar: React.FC = () => {
           >
             &lt;
           </Button>
-          <Typography level="h4" sx={{ color: 'white' }}>
+          <Typography level="h3" sx={{ color: '#30313D' }}>
             {new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })} {currentYear}
           </Typography>
           <Button
@@ -80,7 +82,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={1.714} key={index}>
               <Card sx={{ bgcolor: 'neutral.500' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography level="body-sm" textColor="white">{day}</Typography>
+                  <Typography level="title-lg" textColor="white">{day}</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -90,7 +92,7 @@ const Calendar: React.FC = () => {
             <Grid item xs={1.714} key={`prev-${day}`}>
               <Card variant="outlined" sx={{ bgcolor: 'neutral.300', height: '110px', cursor: 'pointer' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography level="body-sm" textColor="text.secondary">
+                  <Typography level="body-sm" sx={{ marginTop: '-8px'}} textColor="text.secondary">
                     {day}
                   </Typography>
                 </CardContent>
@@ -102,8 +104,21 @@ const Calendar: React.FC = () => {
           {days.map(day => (
             <Grid item xs={1.714} key={day}>
               <Card variant="outlined" sx={{ bgcolor: 'primary.100', height: '110px', cursor: 'pointer' }}>
-                <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography level="body-sm">{day}</Typography>
+                <CardContent sx={{ textAlign: 'center'}}>
+                  <Typography level="body-sm" sx={{
+                      marginTop: '-8px',
+                      display: 'inline-flex', // Ensures the background is circular
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '30px', // Match the intended circle size
+                      height: '30px',
+                      borderRadius: '50%',
+                      color: day === currentDay ? 'white' : 'inherit',
+                      backgroundColor:
+                        day === currentDay && currentMonth === today.getMonth() && currentYear === today.getFullYear()
+                          ? 'neutral.500' // Circle color for current day
+                          : 'transparent', // No background for other days
+        }}>{day}</Typography>
                 </CardContent>
               </Card>
             </Grid>
