@@ -18,6 +18,7 @@ const getStartDayOfMonth = (month: number, year: number) => {
 };
 
 const Calendar: React.FC = () => {
+  const [currentDay, setCurrentDay] = useState(new Date().getDay());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
@@ -50,7 +51,7 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <Card sx={{ bgcolor: 'primary.400' }} size="lg" variant="solid">
+    <Card sx={{ bgcolor: 'primary.200' }} size="lg" variant="solid">
       <CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
           <Button
@@ -77,7 +78,7 @@ const Calendar: React.FC = () => {
           {/* Render days of the week */}
           {daysOfTheWeek.map((day, index) => (
             <Grid item xs={1.714} key={index}>
-              <Card sx={{ bgcolor: 'primary.800' }}>
+              <Card sx={{ bgcolor: 'neutral.500' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Typography level="body-sm" textColor="white">{day}</Typography>
                 </CardContent>
