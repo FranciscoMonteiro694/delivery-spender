@@ -7,6 +7,8 @@ import Typography from '@mui/joy/Typography';
 import Grid from '@mui/joy/Grid';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
+import AddIcon from '@mui/icons-material/Add';
+
 
 // Utility functions to get days and starting day of the month
 const getDaysInMonth = (month: number, year: number) => {
@@ -44,7 +46,7 @@ const Calendar: React.FC = () => {
   const goToPrevMonth = () => {
     setCurrentMonth(prevMonth);
     setCurrentYear(prevMonthYear);
-    console.log("currentDay: "  + currentDay)
+    console.log("currentDay: " + currentDay)
   };
 
   const goToNextMonth = () => {
@@ -90,9 +92,15 @@ const Calendar: React.FC = () => {
           {/* Render previous month's days */}
           {prevMonthDays.map(day => (
             <Grid item xs={1.714} key={`prev-${day}`}>
-              <Card variant="outlined" sx={{ bgcolor: 'neutral.300', height: '110px', cursor: 'pointer' }}>
+              <Card variant="outlined" sx={{ bgcolor: 'neutral.300', height: '110px', cursor: 'pointer', padding: '12px' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography level="body-sm" sx={{ marginTop: '-8px'}} textColor="text.secondary">
+                  <Typography level="body-sm" sx={{
+                    //alignItems: 'center',
+                    //justifyContent: 'center',
+                    width: '20px',
+                    height: '20px',
+                    color: day === currentDay ? 'white' : 'inherit',
+                  }} textColor="text.secondary">
                     {day}
                   </Typography>
                 </CardContent>
@@ -103,22 +111,42 @@ const Calendar: React.FC = () => {
           {/* Render current month's days */}
           {days.map(day => (
             <Grid item xs={1.714} key={day}>
-              <Card variant="outlined" sx={{ bgcolor: 'primary.100', height: '110px', cursor: 'pointer' }}>
-                <CardContent sx={{ textAlign: 'center'}}>
+              <Card variant="outlined" sx={{ bgcolor: 'primary.100', height: '110px', cursor: 'pointer', padding: '12px', '&:hover .addButton': { display: 'flex' } }}>
+                <CardContent sx={{ textAlign: 'center', display: 'flex', flexDirection: 'row' }}>
                   <Typography level="body-sm" sx={{
-                      marginTop: '-8px',
-                      display: 'inline-flex', // Ensures the background is circular
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    color: day === currentDay && currentMonth === today.getMonth() && currentYear === today.getFullYear() ? 'white' : 'inherit',
+                    backgroundColor:
+                      day === currentDay && currentMonth === today.getMonth() && currentYear === today.getFullYear()
+                        ? 'neutral.500'
+                        : 'transparent',
+
+                  }}>{day}</Typography>
+                  <Box
+                    className="addButton"
+                    sx={{
+                      display: 'none',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      width: '30px', // Match the intended circle size
-                      height: '30px',
-                      borderRadius: '50%',
-                      color: day === currentDay ? 'white' : 'inherit',
-                      backgroundColor:
-                        day === currentDay && currentMonth === today.getMonth() && currentYear === today.getFullYear()
-                          ? 'neutral.500' // Circle color for current day
-                          : 'transparent', // No background for other days
-        }}>{day}</Typography>
+                      width: '100%',
+                      height: '100%',
+                    }}
+                  >
+                    <Button
+                      variant="soft"
+                      size="sm"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '12px',
+                      }}
+                    >
+                      <AddIcon fontSize="xl4" />
+                    </Button>
+                  </Box>
+
                 </CardContent>
               </Card>
             </Grid>
@@ -127,9 +155,13 @@ const Calendar: React.FC = () => {
           {/* Render next month's days */}
           {nextMonthDays.map(day => (
             <Grid item xs={1.714} key={`next-${day}`}>
-              <Card variant="outlined" sx={{ backgroundColor: '#f0f0f0', cursor: 'pointer' }}>
+              <Card variant="outlined" sx={{ backgroundColor: '#f0f0f0', height: '110px', cursor: 'pointer', padding: '12px' }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Typography level="body-sm" textColor="text.secondary">
+                  <Typography level="body-sm" sx={{
+                    width: '20px',
+                    height: '20px',
+                    color: day === currentDay ? 'white' : 'inherit',
+                  }} textColor="text.secondary">
                     {day}
                   </Typography>
                 </CardContent>
